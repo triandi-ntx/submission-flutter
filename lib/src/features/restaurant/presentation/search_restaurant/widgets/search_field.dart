@@ -4,7 +4,7 @@ import 'package:restr/src/constants/constants.dart';
 import 'package:restr/src/features/restaurant/presentation/search_restaurant/controllers/result_search_text.dart';
 import 'package:restr/src/features/restaurant/presentation/search_restaurant/controllers/search_restaurant_controller.dart';
 import 'package:restr/src/shared/extensions/extensions.dart';
-import 'package:restr/src/shared/helper/hero_builder.dart';
+import 'package:restr/src/shared/helper/helper.dart';
 
 class SearchField extends ConsumerWidget {
   const SearchField({
@@ -38,9 +38,11 @@ class SearchField extends ConsumerWidget {
           hintStyle: AppThemes.text2.grey,
         ),
         onChanged: (value) {
-          ref
-              .read(searchRestaurantControllerProvider.notifier)
-              .searchRestaurant(name: value);
+          if (value.isNotEmpty) {
+            ref
+                .read(searchRestaurantControllerProvider.notifier)
+                .searchRestaurant(query: value);
+          }
           ref
               .read(resultSearchTextControllerProvider.notifier)
               .search(name: value);
